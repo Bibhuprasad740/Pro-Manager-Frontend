@@ -1,0 +1,54 @@
+.navigationSection {
+  background-color: rgb(242, 242, 255);
+  width: 20%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  padding: 1rem;
+  width: 70%;
+  height: auto;
+  /* background-color: red; */
+}
+
+.buttons {
+  padding: 2rem 0;
+}
+
+.navButton {
+  width: 20vw;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.navButton:hover {
+  background-color: rgb(224, 224, 255);
+}
+
+.buttonTitle {
+  font-size: 1.2rem;
+}
+
+.spacer {
+  height: 100%;
+}
+
+.active {
+  background-color: rgb(211, 211, 250);
+}
+
+a {
+  color: gray;
+}
+
+a.active {
+  color: black;
+}

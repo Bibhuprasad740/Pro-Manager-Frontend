@@ -5,6 +5,8 @@ import SignUp from "./components/auth/signup/SignUp";
 import Board from "./components/board/Board";
 import { routeProtection } from "./utils/utils";
 import ErrorPage from "./components/error/ErrorPage";
+import Analytics from "./components/analytics/Analytics";
+import Settings from "./components/settings/Settings";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +16,16 @@ const router = createBrowserRouter([
     children: [
       // code to be added
     ],
+  },
+  {
+    path: "analytics",
+    element: <Analytics />,
+    loader: routeProtection,
+  },
+  {
+    path: "settings",
+    element: <Settings />,
+    loader: routeProtection,
   },
   {
     path: "/error",
