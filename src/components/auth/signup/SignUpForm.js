@@ -7,8 +7,12 @@ import { CiLock } from "react-icons/ci";
 
 import classes from "./SignUpForm.module.css";
 import SubmitButton from "../reusables/SubmitButton";
+import { useDispatch } from "react-redux";
+import { register } from "../../../store/authSlice";
 
 const SignUpForm = () => {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const changeNameInputHandler = (event) => {
     setName(event.target.value);
@@ -29,8 +33,13 @@ const SignUpForm = () => {
     setConfirmPassword(event.target.value);
   };
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+    dispatch(register(name, email, password, confirmPassword));
+  };
+
   return (
-    <form className={classes.signUpForm}>
+    <form className={classes.signUpForm} onSubmit={submitHandler}>
       {/* Name input */}
       <div className={classes.inputBox}>
         <CiUser size={30} />
@@ -39,6 +48,7 @@ const SignUpForm = () => {
           type="text"
           placeholder="Name"
           value={name}
+          name="name"
           onChange={changeNameInputHandler}
         />
       </div>
@@ -50,6 +60,7 @@ const SignUpForm = () => {
           type="email"
           placeholder="Email"
           value={email}
+          name="email"
           onChange={changeEmailInputHandler}
         />
       </div>
@@ -61,6 +72,7 @@ const SignUpForm = () => {
           type="password"
           placeholder="Password"
           value={password}
+          name="password"
           onChange={changePasswordInputHandler}
         />
       </div>
@@ -69,9 +81,10 @@ const SignUpForm = () => {
         <CiLock size={30} />
         <input
           className={classes.userInput}
-          type="confirm password"
-          placeholder="Password"
+          type="password"
+          placeholder="Confirm Password"
           value={confirmPassword}
+          name="confirmPassword"
           onChange={changesetConfirmPasswordInputHandler}
         />
       </div>
