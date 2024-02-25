@@ -1,0 +1,25 @@
+.errorPage {
+  height: 100vh;
+  width: 100vw;
+  background-color: #17a2b8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.imageSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+img {
+  height: 50vh;
+  width: 30vw;
+}
+
+h1 {
+  font-size: 4rem;
+}

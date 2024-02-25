@@ -4,10 +4,14 @@ import axios from "axios";
 import Apis from "../backend_apis";
 import history from "../history";
 
+const initialUser = localStorage.getItem("auth")
+  ? JSON.parse(localStorage.getItem("auth"))
+  : null;
+
 const initialState = {
   isLoading: false,
   isAuthenticated: false,
-  currentUser: null,
+  currentUser: initialUser,
   error: null,
 };
 

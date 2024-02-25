@@ -3,14 +3,21 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignIn from "./components/auth/signin/SignIn";
 import SignUp from "./components/auth/signup/SignUp";
 import Board from "./components/board/Board";
+import { routeProtection } from "./utils/utils";
+import ErrorPage from "./components/error/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Board />,
+    loader: routeProtection,
     children: [
       // code to be added
     ],
+  },
+  {
+    path: "/error",
+    element: <ErrorPage />,
   },
   {
     path: "signin",
