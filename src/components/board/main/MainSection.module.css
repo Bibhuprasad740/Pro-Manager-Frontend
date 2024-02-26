@@ -1,4 +1,23 @@
 .mainSection {
   /* background-color: rgb(254, 168, 168); */
   width: 100%;
+  padding: 1.5rem;
+}
+
+.headerSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.tasksSection {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }

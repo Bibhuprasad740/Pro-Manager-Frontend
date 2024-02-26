@@ -20,3 +20,8 @@
   width: 100%;
   outline: none;
 }
+
+.error {
+  color: rgb(155, 1, 1);
+  font-size: 1rem;
+}

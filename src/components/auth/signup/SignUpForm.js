@@ -7,11 +7,12 @@ import { CiLock } from "react-icons/ci";
 
 import classes from "./SignUpForm.module.css";
 import SubmitButton from "../reusables/SubmitButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../../store/authSlice";
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
+  const errorText = useSelector((state) => state.auth.error);
 
   const [name, setName] = useState("");
   const changeNameInputHandler = (event) => {
@@ -88,6 +89,9 @@ const SignUpForm = () => {
           onChange={changesetConfirmPasswordInputHandler}
         />
       </div>
+
+      {/* Error section */}
+      {errorText && <p className={classes.error}>{errorText}</p>}
 
       <SubmitButton title="Register" />
     </form>

@@ -4,11 +4,12 @@ import classes from "./SignInForm.module.css";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import SubmitButton from "../reusables/SubmitButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../../store/authSlice";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
+  const errorText = useSelector((state) => state.auth.error);
 
   const [email, setEmail] = useState("");
   const changeEmailInputHandler = (event) => {
@@ -51,6 +52,9 @@ const SignInForm = () => {
           onChange={changePasswordInputHandler}
         />
       </div>
+
+      {/* Error section */}
+      {errorText && <p className={classes.error}>{errorText}</p>}
 
       <SubmitButton title="Login" />
     </form>

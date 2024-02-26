@@ -1,0 +1,12 @@
+.taskSection {
+  height: 90vh;
+  background-color: rgb(237, 241, 243);
+  width: 25%;
+  border-radius: 10px;
+}
+
+.title {
+  margin: 1.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}

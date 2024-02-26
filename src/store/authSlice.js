@@ -3,14 +3,17 @@ import axios from "axios";
 
 import Apis from "../backend_apis";
 import history from "../history";
+import { redirect } from "react-router-dom";
 
 const initialUser = localStorage.getItem("auth")
   ? JSON.parse(localStorage.getItem("auth"))
   : null;
 
+const authStatus = localStorage.getItem("auth") ? true : false;
+
 const initialState = {
   isLoading: false,
-  isAuthenticated: false,
+  isAuthenticated: authStatus,
   currentUser: initialUser,
   error: null,
 };
@@ -43,6 +46,18 @@ const authSlice = createSlice({
       state.currentUser = null;
       state.isLoading = false;
     },
+    logout(state, action) {
+      localStorage.removeItem("auth");
+      state.currentUser = null;
+      state.isAuthenticated = false;
+      redirect("/signin");
+    },
+    setError(state, action) {
+      state.error = action.payload;
+    },
+    setLoading(state, action) {
+      state.isLoading = action.payload;
+    },
   },
 });
 
@@ -53,6 +68,7 @@ export default authSlice;
 // custom action creators
 export const register = (name, email, password, confirmPassword) => {
   return async (dispatch) => {
+    authActions.setLoading(true);
     try {
       const formData = new FormData();
       formData.append("name", name);
@@ -62,14 +78,14 @@ export const register = (name, email, password, confirmPassword) => {
 
       const config = {
         headers: {
-          "content-type": "application/json",
+          "Content-type": "application/json",
         },
       };
 
       const response = await axios.post(Apis.signupApi, formData, config);
 
       if (response.status !== 200) {
-        dispatch(authActions.registerFailure({ error: response.data }));
+        dispatch(authActions.setError(response.data));
         return;
       }
 
@@ -82,13 +98,15 @@ export const register = (name, email, password, confirmPassword) => {
       window.location.reload();
     } catch (error) {
       console.log("Error in authSlice.register", error);
-      dispatch(authActions.registerFailure({ error: error.response.data }));
+      dispatch(authActions.setError(error.response.data));
     }
+    authActions.setLoading(false);
   };
 };
 
 export const signin = (email, password) => {
   return async (dispatch) => {
+    authActions.setLoading(true);
     try {
       console.log("Trying to sing in..");
       const formData = new FormData();
@@ -97,14 +115,14 @@ export const signin = (email, password) => {
 
       const config = {
         headers: {
-          "content-type": "application/json",
+          "Content-type": "application/json",
         },
       };
 
       const response = await axios.post(Apis.signinApi, formData, config);
 
       if (response.status !== 200) {
-        dispatch(authActions.loginFailure({ error: response.data }));
+        dispatch(authActions.setError(response.data));
         return;
       }
 
@@ -115,7 +133,8 @@ export const signin = (email, password) => {
       window.location.reload();
     } catch (error) {
       console.log("Error in authSlice.signin", error);
-      dispatch(authActions.loginFailure({ error: error.response.data }));
+      dispatch(authActions.setError(error.response.data));
     }
+    authActions.setLoading(false);
   };
 };

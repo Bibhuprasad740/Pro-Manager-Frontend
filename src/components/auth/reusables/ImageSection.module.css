@@ -8,6 +8,11 @@
   flex-direction: column;
 }
 
+.image {
+  width: 40%;
+  height: auto;
+}
+
 .heading {
   color: white;
   margin: 1rem;

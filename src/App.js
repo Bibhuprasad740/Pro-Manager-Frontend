@@ -13,9 +13,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Board />,
     loader: routeProtection,
-    children: [
-      // code to be added
-    ],
   },
   {
     path: "analytics",

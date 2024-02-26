@@ -8,11 +8,19 @@ import { CiSettings } from "react-icons/ci";
 import { LuLogOut } from "react-icons/lu";
 
 import logo from "../../../assets/images/logo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../../store/authSlice";
 
-const size = 30;
+const size = 25;
 
 const NavigationSection = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    navigate("/signin");
+    dispatch(authActions.logout());
+  };
   return (
     <div className={classes.navigationSection}>
       <img className={classes.image} src={logo} alt="logo.png" />
@@ -59,10 +67,10 @@ const NavigationSection = () => {
       {/* spacer */}
       <div className={classes.spacer}></div>
       {/* Logout Button */}
-      <div className={classes.navButton}>
+      <button className={classes.navButton} onClick={logoutHandler}>
         <LuLogOut size={size} />
         <h2 className={classes.buttonTitle}>Logout</h2>
-      </div>
+      </button>
     </div>
   );
 };
