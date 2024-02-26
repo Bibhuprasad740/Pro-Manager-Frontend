@@ -1,0 +1,14 @@
+.checklist {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+  padding: 0.8rem;
+  border: solid 1px gray;
+  border-radius: 20px;
+  margin: 10px 0;
+}
+
+.content {
+  font-size: 0.8rem;
+}
