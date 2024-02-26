@@ -24,6 +24,26 @@
   font-weight: bold;
 }
 
+.cardOptionsButton {
+  cursor: pointer;
+}
+
+.cardOptions {
+  position: absolute;
+}
+
+.cardOption {
+  position: relative;
+  padding: 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.cardOption:hover {
+  background-color: black;
+  color: white;
+}
+
 .checklistSection {
   margin: 1rem 0;
 }
@@ -44,8 +64,9 @@ button {
 
 .footer {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  padding: 1rem 0;
 }
 
 .deadline {
@@ -54,6 +75,11 @@ button {
   border-radius: 5px;
   padding: 5px 8px;
   font-size: 10px;
+}
+
+.shiftButtons {
+  display: flex;
+  gap: 10px;
 }
 
 .shiftButton {

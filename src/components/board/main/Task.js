@@ -12,9 +12,14 @@ const size = 20;
 
 const Task = () => {
   const [showCheckList, setShowCheckList] = useState(false);
+  const [showCardOptions, setShowCardOptions] = useState(false);
 
   const showCheckListHandler = () => {
     setShowCheckList((state) => !state);
+  };
+
+  const cardOptionsClickHandler = () => {
+    setShowCardOptions((state) => !state);
   };
   return (
     <div className={classes.task}>
@@ -26,8 +31,21 @@ const Task = () => {
           <p>HIGH PRIORITY</p>
         </div>
         {/* Three dot icon */}
-        <HiDotsHorizontal size={size} />
+        <HiDotsHorizontal
+          onClick={cardOptionsClickHandler}
+          className={classes.cardOptionsButton}
+          size={size}
+        />
       </section>
+
+      {/* Card Options */}
+      {showCardOptions && (
+        <div className={classes.cardOptions}>
+          <button className={classes.cardOption}>Edit</button>
+          <button className={classes.cardOption}>Share</button>
+          <button className={classes.cardOption}>Delete</button>
+        </div>
+      )}
 
       {/* Title */}
       <p className={classes.title}>Hero Section</p>
@@ -59,15 +77,18 @@ const Task = () => {
           <p>Feb 10th</p>
         </button>
 
-        <button className={classes.shiftButton}>
-          <p>PROGRESS</p>
-        </button>
-        <button className={classes.shiftButton}>
-          <p>TODO</p>
-        </button>
-        <button className={classes.shiftButton}>
-          <p>DONE</p>
-        </button>
+        {/* Shift buttons */}
+        <div className={classes.shiftButtons}>
+          <button className={classes.shiftButton}>
+            <p>PROGRESS</p>
+          </button>
+          <button className={classes.shiftButton}>
+            <p>TODO</p>
+          </button>
+          <button className={classes.shiftButton}>
+            <p>DONE</p>
+          </button>
+        </div>
       </section>
     </div>
   );

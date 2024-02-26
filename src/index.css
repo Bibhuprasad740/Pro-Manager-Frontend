@@ -21,6 +21,7 @@ code {
 /* For webkit-based browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 4px; /* Set the width of the scrollbar */
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
