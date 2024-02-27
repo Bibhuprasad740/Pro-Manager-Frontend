@@ -1,0 +1,62 @@
+.logoutModal .overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 30vw;
+  min-width: 20vw;
+  align-items: center;
+}
+
+.title {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+  padding: 1rem 0;
+}
+
+.cancel,
+.confirm {
+  width: 100%;
+  padding: 1rem 0;
+  margin: 10px 0;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: white;
+  color: rgb(176, 2, 2);
+  border: 1px solid rgb(176, 2, 2);
+}
+
+.confirm {
+  color: white;
+  background-color: #17a2b8;
+}
+
+.cancel:hover {
+  background-color: rgb(232, 232, 232);
+}
+
+.confirm:hover {
+  background-color: #188b9c;
+}

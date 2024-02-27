@@ -40,10 +40,12 @@ const Task = () => {
 
       {/* Card Options */}
       {showCardOptions && (
-        <div className={classes.cardOptions}>
-          <button className={classes.cardOption}>Edit</button>
-          <button className={classes.cardOption}>Share</button>
-          <button className={classes.cardOption}>Delete</button>
+        <div className={classes.wrapper}>
+          <div className={classes.cardOptions}>
+            <button className={classes.cardOption}>Edit</button>
+            <button className={classes.cardOption}>Share</button>
+            <button className={classes.cardOption}>Delete</button>
+          </div>
         </div>
       )}
 

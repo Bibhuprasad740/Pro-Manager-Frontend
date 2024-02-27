@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import classes from "./NavigationSection.module.css";
 
@@ -8,18 +8,19 @@ import { CiSettings } from "react-icons/ci";
 import { LuLogOut } from "react-icons/lu";
 
 import logo from "../../../assets/images/logo.png";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { authActions } from "../../../store/authSlice";
+import { NavLink } from "react-router-dom";
+import LogoutModal from "./LogoutModal";
 
 const size = 25;
 
 const NavigationSection = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const closeModalHandler = () => {
+    setShowLogoutModal(false);
+  };
+
   const logoutHandler = () => {
-    navigate("/signin");
-    dispatch(authActions.logout());
+    setShowLogoutModal(true);
   };
   return (
     <div className={classes.navigationSection}>
@@ -37,7 +38,7 @@ const NavigationSection = () => {
           >
             <div className={classes.navButton}>
               <MdOutlineSpaceDashboard size={size} />
-              <h2 className={classes.buttonTitle}>Board</h2>
+              <h2>Board</h2>
             </div>
           </NavLink>
         </li>
@@ -49,7 +50,7 @@ const NavigationSection = () => {
         >
           <div className={classes.navButton}>
             <GoDatabase size={size} />
-            <h2 className={classes.buttonTitle}>Analytics</h2>
+            <h2>Analytics</h2>
           </div>
         </NavLink>
         {/* Settings button */}
@@ -60,7 +61,7 @@ const NavigationSection = () => {
         >
           <div className={classes.navButton}>
             <CiSettings size={size} />
-            <h2 className={classes.buttonTitle}>Settings</h2>
+            <h2>Settings</h2>
           </div>
         </NavLink>
       </ul>
@@ -69,8 +70,9 @@ const NavigationSection = () => {
       {/* Logout Button */}
       <button className={classes.navButton} onClick={logoutHandler}>
         <LuLogOut size={size} />
-        <h2 className={classes.buttonTitle}>Logout</h2>
+        <h2>Logout</h2>
       </button>
+      {showLogoutModal && <LogoutModal onClose={closeModalHandler} />}
     </div>
   );
 };
