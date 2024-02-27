@@ -1,0 +1,156 @@
+.addTaskModal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 100vw;
+  min-width: 300px;
+}
+
+.titleSection {
+  /* background-color: red; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.title {
+  font-size: 1rem;
+}
+
+.star {
+  color: red;
+  font-size: 1.5rem;
+}
+
+.titleInputSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid gray;
+  padding: 1rem;
+  width: 40vw;
+  border-radius: 5px;
+}
+
+input {
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.prioritySection {
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.priority {
+  width: 20%;
+  padding-right: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid rgb(201, 201, 201);
+}
+
+.priority:hover,
+.priority.active {
+  background-color: rgb(213, 212, 212);
+  border: none;
+}
+
+.checklistSection {
+  margin: 2rem 0;
+  max-height: 30vh;
+  overflow-y: scroll;
+  padding: 1rem 0;
+}
+
+.checklistHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.addButton {
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: black;
+  color: white;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.datePicker {
+  cursor: pointer;
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cancel,
+.save {
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel {
+  background-color: white;
+  border: 1px solid rgb(176, 2, 2);
+  color: rgb(176, 2, 2);
+}
+
+.save {
+  background-color: #17a2b8;
+  border: 1px solid teal;
+  color: white;
+}
+
+.cancel:hover {
+  background-color: rgb(176, 2, 2);
+  color: white;
+}
+
+.save:hover {
+  background-color: #128698;
+}

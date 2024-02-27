@@ -1,0 +1,25 @@
+.addTaskchecklist {
+  display: flex;
+  border: solid 1px gray;
+  padding: 0.8rem;
+  margin: 10px 0;
+  border-radius: 10px;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+}
+
+.checkbox {
+  background-color: red;
+  width: 2vw;
+}
+
+.content {
+  font-size: 0.8rem;
+}
+
+.deleteButton {
+  font-size: 1.5rem;
+  color: red;
+  cursor: pointer;
+}

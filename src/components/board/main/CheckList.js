@@ -22,7 +22,7 @@ const CheckList = () => {
       )}
       {!checked && (
         <button onClick={toggleCheckedHandler}>
-          <ImCheckboxUnchecked size={size} color="gray" />
+          <ImCheckboxUnchecked size={size} color="rgb(183, 183, 183)" />
         </button>
       )}
       <p className={classes.content}>

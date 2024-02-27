@@ -14,7 +14,7 @@
 
 .priority {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -70,7 +70,7 @@ button {
 }
 
 .deadline {
-  background-color: rgb(134, 0, 0);
+  background-color: rgb(176, 2, 2);
   color: white;
   border-radius: 5px;
   padding: 5px 8px;
