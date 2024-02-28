@@ -38,7 +38,7 @@ const NavigationSection = () => {
           >
             <div className={classes.navButton}>
               <MdOutlineSpaceDashboard size={size} />
-              <h2>Board</h2>
+              <h2 className={classes.navTitle}>Board</h2>
             </div>
           </NavLink>
         </li>
@@ -50,7 +50,7 @@ const NavigationSection = () => {
         >
           <div className={classes.navButton}>
             <GoDatabase size={size} />
-            <h2>Analytics</h2>
+            <h2 className={classes.navTitle}>Analytics</h2>
           </div>
         </NavLink>
         {/* Settings button */}
@@ -61,7 +61,7 @@ const NavigationSection = () => {
         >
           <div className={classes.navButton}>
             <CiSettings size={size} />
-            <h2>Settings</h2>
+            <h2 className={classes.navTitle}>Settings</h2>
           </div>
         </NavLink>
       </ul>
@@ -70,7 +70,7 @@ const NavigationSection = () => {
       {/* Logout Button */}
       <button className={classes.navButton} onClick={logoutHandler}>
         <LuLogOut size={size} />
-        <h2>Logout</h2>
+        <h2 className={classes.navTitle}>Logout</h2>
       </button>
       {showLogoutModal && <LogoutModal onClose={closeModalHandler} />}
     </div>

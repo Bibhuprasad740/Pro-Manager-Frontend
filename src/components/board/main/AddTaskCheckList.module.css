@@ -23,3 +23,12 @@
   color: red;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+  .addTaskchecklist {
+    padding: 10px;
+  }
+  .checkbox {
+    width: 5vw;
+  }
+}

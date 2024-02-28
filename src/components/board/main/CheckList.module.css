@@ -9,6 +9,11 @@
   margin: 10px 0;
 }
 
+.checkbox {
+  background-color: red;
+  width: 2vw;
+}
+
 .content {
   font-size: 0.8rem;
 }

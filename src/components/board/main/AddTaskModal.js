@@ -104,7 +104,7 @@ const AddTaskModal = ({ onClose }) => {
 
     dispatch(addTask(task, userToken));
 
-    // onClose();
+    onClose();
   };
 
   return (

@@ -1,5 +1,9 @@
 .signInForm {
   margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .inputBox {
@@ -9,6 +13,7 @@
   border: 1px solid #17a2b8;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: 10px;
   width: 25vw;
 }
@@ -24,4 +29,16 @@
 .error {
   color: rgb(155, 1, 1);
   font-size: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .signUpForm {
+    width: 100%;
+  }
+  .userInput {
+    width: 90vw;
+  }
+  .inputBox {
+    width: 90vw;
+  }
 }

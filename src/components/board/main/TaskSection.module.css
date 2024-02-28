@@ -2,8 +2,9 @@
   height: 83vh;
   background-color: rgb(237, 241, 243);
   width: 25%;
+  min-width: 300px;
   border-radius: 10px;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
 }
 
 .header {

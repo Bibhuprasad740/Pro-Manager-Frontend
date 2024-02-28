@@ -9,7 +9,7 @@
 
 .image {
   padding: 1rem;
-  width: 60%;
+  width: 80%;
   height: auto;
   /* background-color: red; */
 }
@@ -49,4 +49,10 @@ a {
 
 a.active {
   color: black;
+}
+
+@media only screen and (max-width: 600px) {
+  .navTitle {
+    display: none;
+  }
 }

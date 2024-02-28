@@ -2,24 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { addTaskApi } from "../backend_apis";
 
-const backlog = localStorage.getItem("backlog")
-  ? JSON.parse(localStorage.getItem("backlog"))
-  : [];
-const todo = localStorage.getItem("todo")
-  ? JSON.parse(localStorage.getItem("todo"))
-  : [];
-const onGoing = localStorage.getItem("ongoing")
-  ? JSON.parse(localStorage.getItem("ongoing"))
-  : [];
-const done = localStorage.getItem("done")
-  ? JSON.parse(localStorage.getItem("done"))
-  : [];
-
 const initialTasks = {
-  backlog,
-  todo,
-  onGoing,
-  done,
+  backlog: [],
+  todo: [],
+  onGoing: [],
+  done: [],
 };
 
 const initialState = {
@@ -93,4 +80,18 @@ export const addTask = (task, userToken) => {
       //   taskActions.setError(error.response.data);
     }
   };
+};
+
+export const fetchTasks = async (api, token) => {
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await axios.get(api, { headers });
+    return response.data;
+  } catch (error) {
+    console.log("Error in taskSlice.fetchTasks", error);
+    return [];
+  }
 };

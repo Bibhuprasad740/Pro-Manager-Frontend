@@ -7,10 +7,11 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
 import CheckList from "./CheckList";
+import { format } from "date-fns";
 
 const size = 20;
 
-const Task = () => {
+const Task = ({ task }) => {
   const [showCheckList, setShowCheckList] = useState(false);
   const [showCardOptions, setShowCardOptions] = useState(false);
 
@@ -21,14 +22,43 @@ const Task = () => {
   const cardOptionsClickHandler = () => {
     setShowCardOptions((state) => !state);
   };
+
+  // TODO: implement this function
+  const toggleCheckHandler = (item) => {};
+
+  const priority = task.priority.toUpperCase();
+
+  let priorityColor;
+  if (task.priority === "low") {
+    priorityColor = "green";
+  } else if (task.priority === "moderate") {
+    priorityColor = "blue";
+  } else {
+    priorityColor = "red";
+  }
+
+  const checkedChecklistsCount = task.checklists.reduce(
+    (acc, list) => acc + list.checked,
+    0
+  );
+
+  var formattedDate = null;
+  var isDueDatePassed = false;
+  if (task.dueDate) {
+    formattedDate = format(task.dueDate, "MMM dd");
+
+    const today = new Date();
+    isDueDatePassed = Date(task.dueDate) < today;
+  }
+
   return (
     <div className={classes.task}>
       {/* Task header */}
       <section className={classes.header}>
         {/* Priority */}
         <div className={classes.priority}>
-          <PiDotOutlineFill color="red" size={30} />
-          <p>HIGH PRIORITY</p>
+          <PiDotOutlineFill color={priorityColor} size={30} />
+          <p>{priority} PRIORITY</p>
         </div>
         {/* Three dot icon */}
         <HiDotsHorizontal
@@ -50,12 +80,14 @@ const Task = () => {
       )}
 
       {/* Title */}
-      <p className={classes.title}>Hero Section</p>
+      <p className={classes.title}>{task.title}</p>
 
       {/* Checklist */}
       <section className={classes.checklistSection}>
         <div className={classes.checkListHeader}>
-          <p className={classes.checkListHeaderTitle}>Checklist(1/3)</p>
+          <p className={classes.checkListHeaderTitle}>
+            Checklist({checkedChecklistsCount}/{task.checklists.length})
+          </p>
           <button onClick={showCheckListHandler}>
             {showCheckList && <MdExpandLess size={25} />}
             {!showCheckList && <MdExpandMore size={25} />}
@@ -65,9 +97,13 @@ const Task = () => {
         {/* Individual Checklists */}
         {showCheckList && (
           <>
-            <CheckList />
-            <CheckList />
-            <CheckList />
+            {task.checklists.map((data) => (
+              <CheckList
+                key={data._id}
+                data={data}
+                onToggleCheck={toggleCheckHandler}
+              />
+            ))}
           </>
         )}
       </section>
@@ -75,9 +111,13 @@ const Task = () => {
       {/* Footer section */}
       <section className={classes.footer}>
         {/* Deadline */}
-        <button className={classes.deadline}>
-          <p>Feb 10th</p>
-        </button>
+        {formattedDate && (
+          <button
+            className={isDueDatePassed ? classes.deadline : classes.normal}
+          >
+            <p>{formattedDate}</p>
+          </button>
+        )}
 
         {/* Shift buttons */}
         <div className={classes.shiftButtons}>

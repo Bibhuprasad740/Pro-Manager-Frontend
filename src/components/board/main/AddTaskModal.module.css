@@ -154,3 +154,22 @@ input {
 .save:hover {
   background-color: #128698;
 }
+
+@media only screen and (max-width: 600px) {
+  .modalContent {
+    padding: 1rem;
+  }
+  .titleInputSection {
+    width: 90vw;
+  }
+  .cancel {
+    padding: 5px 10px;
+  }
+  .save {
+    padding: 5px 10px;
+  }
+  .priority {
+    font-size: 10px;
+    overflow: hidden;
+  }
+}

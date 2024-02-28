@@ -11,7 +11,7 @@ import { uiActions } from "../../../store/uiSlice";
 
 const size = 20;
 
-const TaskSection = ({ title, isTodo }) => {
+const TaskSection = ({ title, isTodo, tasks }) => {
   const dispatch = useDispatch();
 
   // code to be added here...
@@ -47,8 +47,9 @@ const TaskSection = ({ title, isTodo }) => {
           />
         </div>
       </section>
-      <Task />
-      <Task />
+      {tasks.map((task) => (
+        <Task key={task._id} task={task} />
+      ))}
       {showModal && <AddTaskModal onClose={closeModal} />}
     </div>
   );

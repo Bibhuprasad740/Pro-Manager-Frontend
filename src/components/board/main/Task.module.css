@@ -75,12 +75,21 @@ button {
   padding: 1rem 0;
 }
 
-.deadline {
-  background-color: rgb(176, 2, 2);
-  color: white;
+.deadline,
+.normal {
   border-radius: 5px;
   padding: 5px 8px;
   font-size: 10px;
+  font-weight: bold;
+}
+
+.deadline {
+  background-color: rgb(176, 2, 2);
+  color: white;
+}
+
+.normal {
+  background-color: rgb(220, 220, 220);
 }
 
 .shiftButtons {

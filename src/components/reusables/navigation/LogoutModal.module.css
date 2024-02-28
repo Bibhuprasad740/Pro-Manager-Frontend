@@ -60,3 +60,9 @@
 .confirm:hover {
   background-color: #188b9c;
 }
+
+@media only screen and (max-width: 600px) {
+  .modalContent {
+    max-width: 100vw;
+  }
+}
