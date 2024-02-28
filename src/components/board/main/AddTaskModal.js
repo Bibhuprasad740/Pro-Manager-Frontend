@@ -4,11 +4,12 @@ import { PiDotOutlineFill } from "react-icons/pi";
 import AddTaskCheckList from "./AddTaskCheckLIst";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.module.css";
-import { useDispatch } from "react-redux";
-import { taskActions } from "../../../store/taskSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, taskActions } from "../../../store/taskSlice";
 
 const AddTaskModal = ({ onClose }) => {
   const dispatch = useDispatch();
+  const userToken = useSelector((state) => state.auth.currentUser.token);
 
   const [selectedPriority, setSelectedPriority] = useState(null);
   const priorityClickHandler = (priority) => {
@@ -100,10 +101,8 @@ const AddTaskModal = ({ onClose }) => {
       dueDate: pickedDate,
       status: "todo",
     };
-    console.log(task);
 
-    // more code to be added...
-    // dispatch(addTask(task));
+    dispatch(addTask(task, userToken));
 
     // onClose();
   };

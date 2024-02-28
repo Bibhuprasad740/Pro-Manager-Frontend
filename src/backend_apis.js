@@ -1,2 +1,8 @@
-exports.signinApi = "http://localhost:8080/auth/signin";
-exports.signupApi = "http://localhost:8080/auth/signup";
+const BASE_URL = "http://localhost:8080";
+
+// auth apis
+exports.signinApi = `${BASE_URL}/auth/signin`;
+exports.signupApi = `${BASE_URL}/auth/signup`;
+
+// dashboard apis
+exports.addTaskApi = `${BASE_URL}/api/addTask`;

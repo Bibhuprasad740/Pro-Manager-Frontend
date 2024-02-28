@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { addTaskApi } from "../backend_apis";
 
 const backlog = localStorage.getItem("backlog")
   ? JSON.parse(localStorage.getItem("backlog"))
@@ -53,6 +55,9 @@ const taskSlice = createSlice({
     setDone(state, action) {
       state.tasks.done = action.payload;
     },
+    addTodo(state, action) {
+      state.tasks.todo.push(action.payload);
+    },
   },
 });
 
@@ -60,9 +65,32 @@ export const taskActions = taskSlice.actions;
 
 export default taskSlice;
 
-export const addTask = (task) => {
+export const addTask = (task, userToken) => {
   return async (dispatch) => {
-    // add functionality to add a task using the backend api
-    // update localStorage and ui
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      };
+      await axios
+        .post(addTaskApi, task, { headers })
+        .then((response) => {
+          if (response.status !== 200) {
+            taskActions.setError(response.data);
+            return;
+          }
+
+          dispatch(taskActions.addTodo(response.data));
+        })
+        .catch((error) => {
+          console.log("axios error in taskSlice.addTask", error);
+        });
+
+      // update localStorage
+      //   localStorage.setItem("todo");
+    } catch (error) {
+      console.log("Error in taskSlice.addTask", error);
+      //   taskActions.setError(error.response.data);
+    }
   };
 };
