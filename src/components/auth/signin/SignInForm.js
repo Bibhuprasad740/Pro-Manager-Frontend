@@ -3,9 +3,14 @@ import React, { useState } from "react";
 import classes from "./SignInForm.module.css";
 import { MdOutlineEmail } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
+import { BiSolidShow } from "react-icons/bi";
+import { BiSolidHide } from "react-icons/bi";
+
 import SubmitButton from "../reusables/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../../store/authSlice";
+
+const size = 25;
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -24,6 +29,11 @@ const SignInForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(signin(email, password));
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPasswordHandler = () => {
+    setShowPassword((state) => !state);
   };
 
   return (
@@ -45,12 +55,18 @@ const SignInForm = () => {
         <CiLock size={30} />
         <input
           className={classes.userInput}
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="Password"
           value={password}
           name="password"
           onChange={changePasswordInputHandler}
         />
+        {!showPassword && (
+          <BiSolidShow onClick={toggleShowPasswordHandler} size={size} />
+        )}
+        {showPassword && (
+          <BiSolidHide onClick={toggleShowPasswordHandler} size={size} />
+        )}
       </div>
 
       {/* Error section */}
