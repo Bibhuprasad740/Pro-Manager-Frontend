@@ -4,6 +4,7 @@ import {
   addTaskApi,
   changeTaskStatusApi,
   deleteTaskApi,
+  toggleCheckApi,
 } from "../backend_apis";
 
 const initialTasks = {
@@ -28,9 +29,6 @@ const taskSlice = createSlice({
   reducers: {
     setError(state, action) {
       state.error = action.payload;
-    },
-    clearError(state, action) {
-      state.error = null;
     },
 
     // pass an object like {'backlog': backlog, 'todo': todo, ...} to taskActions.setTasks()
@@ -83,19 +81,20 @@ export const addTask = (task, userToken) => {
         .post(addTaskApi, task, { headers })
         .then((response) => {
           if (response.status !== 200) {
-            taskActions.setError(response.data);
+            dispatch(taskActions.setError(response.data));
             return;
           }
 
           dispatch(taskActions.addTodo(response.data));
         })
         .catch((error) => {
+          dispatch(taskActions.setError(error.response.data));
           console.log("axios error in taskSlice.addTask", error);
         });
 
-      // update localStorage
-      //   localStorage.setItem("todo");
+      dispatch(taskActions.setError(null));
     } catch (error) {
+      dispatch(taskActions.setError(error.response.data));
       console.log("Error in taskSlice.addTask", error);
       //   taskActions.setError(error.response.data);
     }
@@ -132,14 +131,18 @@ export const changeStatus = (taskId, newStatus, token) => {
         headers,
       });
       if (response.status !== 200) {
+        dispatch(taskActions.setError(response.data));
         console.log("Error in taskSlice.changeStatus. change status failed!");
       }
+      window.location.reload();
+
+      dispatch(taskActions.setError(null));
     } catch (error) {
+      dispatch(taskActions.setError("Can not update status!"));
       console.log("Error in taskSlice.changeStatus", error);
     }
 
     // will change it to a state based re-render later.. for now reload will do
-    window.location.reload();
   };
 };
 
@@ -155,13 +158,46 @@ export const deleteTask = (id, token) => {
       });
 
       if (response.status !== 200) {
+        dispatch(taskActions.setError(response.data));
         console.log("Error in taskSlice.deleteTask. Delete task failed!");
       }
+      window.location.reload();
+
+      dispatch(taskActions.setError(null));
     } catch (error) {
+      dispatch(taskActions.setError(error.response.data));
       console.log("Error in taskSlice.deleteTask", error);
     }
 
     // will change it to a state based re-render later.. for now reload will do
-    window.location.reload();
+  };
+};
+
+export const toggleTaskCheck = (taskId, checklistId, checked, token) => {
+  return async (dispatch) => {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const body = {
+        taskId,
+        checklistId,
+        checked,
+      };
+
+      const response = await axios.put(toggleCheckApi, body, { headers });
+
+      if (response.status !== 200) {
+        dispatch(taskActions.setError(response.data));
+        console.log("Error in taskSlice.toggleTaskCheck. Toggle check failed!");
+      }
+      window.location.reload();
+
+      dispatch(taskActions.setError(null));
+    } catch (error) {
+      dispatch(taskActions.setError(error.response.data));
+      console.log("Error in taskSlice.toggleTaskCheck", error);
+    }
   };
 };

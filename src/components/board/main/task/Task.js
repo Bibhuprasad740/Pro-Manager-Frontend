@@ -13,6 +13,8 @@ import MoveToDone from "./shift-buttons/MoveToDone";
 import MoveToOnGoing from "./shift-buttons/MoveToOnGoing";
 import MoveToTodo from "./shift-buttons/MoveToTodo";
 import DeleteTaskModal from "./DeleteTaskModal";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTaskCheck } from "../../../../store/taskSlice";
 
 const size = 20;
 
@@ -20,6 +22,8 @@ const Task = ({ task }) => {
   const [showCheckList, setShowCheckList] = useState(false);
   const [showCardOptions, setShowCardOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const token = useSelector((state) => state.auth.currentUser.token);
+  const dispatch = useDispatch();
   const closeModal = () => {
     setShowDeleteModal(false);
   };
@@ -38,7 +42,13 @@ const Task = ({ task }) => {
   };
 
   // TODO: implement this function
-  const toggleCheckHandler = (item) => {};
+  const toggleCheckHandler = (item) => {
+    const taskId = task._id;
+    const checklistId = item._id;
+    const checked = !item.checked;
+
+    dispatch(toggleTaskCheck(taskId, checklistId, checked, token));
+  };
 
   const priority = task.priority.toUpperCase();
 

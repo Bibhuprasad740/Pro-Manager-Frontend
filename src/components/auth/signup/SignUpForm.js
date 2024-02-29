@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //icons
 import { CiUser } from "react-icons/ci";
@@ -11,6 +11,7 @@ import classes from "./SignUpForm.module.css";
 import SubmitButton from "../reusables/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../../store/authSlice";
+import { toast } from "react-hot-toast";
 
 const size = 25;
 
@@ -47,6 +48,12 @@ const SignUpForm = () => {
     event.preventDefault();
     dispatch(register(name, email, password, confirmPassword));
   };
+
+  useEffect(() => {
+    if (errorText) {
+      toast.error(errorText);
+    }
+  }, [errorText]);
 
   return (
     <form className={classes.signUpForm} onSubmit={submitHandler}>
@@ -110,9 +117,6 @@ const SignUpForm = () => {
           <BiSolidHide onClick={toggleShowPasswordHandler} size={size} />
         )}
       </div>
-
-      {/* Error section */}
-      {errorText && <p className={classes.error}>{errorText}</p>}
 
       <SubmitButton title="Register" onClick={submitHandler} />
     </form>

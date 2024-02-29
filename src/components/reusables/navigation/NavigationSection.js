@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import classes from "./NavigationSection.module.css";
 
@@ -10,6 +10,8 @@ import { LuLogOut } from "react-icons/lu";
 import logo from "../../../assets/images/logo.png";
 import { NavLink } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
+import { Toaster, toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const size = 25;
 
@@ -22,6 +24,18 @@ const NavigationSection = () => {
   const logoutHandler = () => {
     setShowLogoutModal(true);
   };
+
+  const errorTextTask = useSelector((state) => state.task.error);
+  const errorTextAuth = useSelector((state) => state.auth.error);
+  useEffect(() => {
+    if (errorTextTask) {
+      toast.error(errorTextTask);
+    }
+    if (errorTextAuth) {
+      toast.error(errorTextAuth);
+    }
+  }, [errorTextTask, errorTextAuth]);
+
   return (
     <div className={classes.navigationSection}>
       <img className={classes.image} src={logo} alt="logo.png" />
@@ -73,6 +87,7 @@ const NavigationSection = () => {
         <h2 className={classes.navTitle}>Logout</h2>
       </button>
       {showLogoutModal && <LogoutModal onClose={closeModalHandler} />}
+      <Toaster position="top-center" />
     </div>
   );
 };

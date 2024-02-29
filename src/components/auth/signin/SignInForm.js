@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import classes from "./SignInForm.module.css";
 import { MdOutlineEmail } from "react-icons/md";
@@ -9,6 +9,7 @@ import { BiSolidHide } from "react-icons/bi";
 import SubmitButton from "../reusables/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../../store/authSlice";
+import { toast } from "react-hot-toast";
 
 const size = 25;
 
@@ -30,6 +31,12 @@ const SignInForm = () => {
     event.preventDefault();
     dispatch(signin(email, password));
   };
+
+  useEffect(() => {
+    if (errorText) {
+      toast.error(errorText);
+    }
+  }, [errorText]);
 
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPasswordHandler = () => {
@@ -68,9 +75,6 @@ const SignInForm = () => {
           <BiSolidHide onClick={toggleShowPasswordHandler} size={size} />
         )}
       </div>
-
-      {/* Error section */}
-      {errorText && <p className={classes.error}>{errorText}</p>}
 
       <SubmitButton title="Login" onClick={submitHandler} />
     </form>

@@ -99,6 +99,8 @@ export const register = (name, email, password, confirmPassword) => {
       );
       history.push("/signin");
       window.location.reload();
+
+      dispatch(authActions.setError(null));
     } catch (error) {
       console.log("Error in authSlice.register", error);
       dispatch(authActions.setError(error.response.data));
@@ -134,6 +136,8 @@ export const signin = (email, password) => {
 
       history.push("/");
       window.location.reload();
+
+      dispatch(authActions.setError(null));
     } catch (error) {
       console.log("Error in authSlice.signin", error);
       dispatch(authActions.setError(error.response.data));
@@ -166,6 +170,7 @@ export const updateUserCredential = (name, oldPassword, newPassword, token) => {
       });
 
       if (response.status !== 200) {
+        dispatch(authActions.setError(response.data));
         console.log("Error in authSlice.updateUserCredential, can not update!");
         return;
       }
@@ -176,7 +181,10 @@ export const updateUserCredential = (name, oldPassword, newPassword, token) => {
         email: response.data.email,
       };
       dispatch(authActions.setUser(newUser));
+
+      dispatch(authActions.setError(null));
     } catch (error) {
+      dispatch(authActions.setError(error.response.data));
       console.log("Error in authSlice.updateUserCredential", error);
     }
   };
