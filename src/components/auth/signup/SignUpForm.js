@@ -114,7 +114,7 @@ const SignUpForm = () => {
       {/* Error section */}
       {errorText && <p className={classes.error}>{errorText}</p>}
 
-      <SubmitButton title="Register" />
+      <SubmitButton title="Register" onClick={submitHandler} />
     </form>
   );
 };

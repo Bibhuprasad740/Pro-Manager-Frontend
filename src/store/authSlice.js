@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import Apis from "../backend_apis";
+import Apis, { updateUserCredentialApi } from "../backend_apis";
 import history from "../history";
 import { redirect } from "react-router-dom";
 
@@ -57,6 +57,9 @@ const authSlice = createSlice({
     },
     setLoading(state, action) {
       state.isLoading = action.payload;
+    },
+    setUser(state, action) {
+      state.currentUser = action.payload;
     },
   },
 });
@@ -136,5 +139,45 @@ export const signin = (email, password) => {
       dispatch(authActions.setError(error.response.data));
     }
     authActions.setLoading(false);
+  };
+};
+
+export const updateUserCredential = (name, oldPassword, newPassword, token) => {
+  return async (dispatch) => {
+    try {
+      if (!name || name.trim().length === 0) {
+        dispatch(authActions.setError("Name can not be empty!"));
+        return;
+      }
+
+      const body = {
+        oldPassword,
+        name,
+        newPassword,
+      };
+
+      const headers = {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + token,
+      };
+
+      const response = await axios.put(updateUserCredentialApi, body, {
+        headers,
+      });
+
+      if (response.status !== 200) {
+        console.log("Error in authSlice.updateUserCredential, can not update!");
+        return;
+      }
+
+      const newUser = {
+        token,
+        name: response.data.name,
+        email: response.data.email,
+      };
+      dispatch(authActions.setUser(newUser));
+    } catch (error) {
+      console.log("Error in authSlice.updateUserCredential", error);
+    }
   };
 };

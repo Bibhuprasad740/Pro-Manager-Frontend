@@ -72,7 +72,7 @@ const SignInForm = () => {
       {/* Error section */}
       {errorText && <p className={classes.error}>{errorText}</p>}
 
-      <SubmitButton title="Login" />
+      <SubmitButton title="Login" onClick={submitHandler} />
     </form>
   );
 };
