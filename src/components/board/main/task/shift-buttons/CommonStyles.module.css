@@ -1,0 +1,14 @@
+.shiftButton {
+  border-radius: 5px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: black;
+  background-color: rgb(210, 210, 210);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.shiftButton:hover {
+  background-color: black;
+  color: white;
+}

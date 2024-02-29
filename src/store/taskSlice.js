@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addTaskApi } from "../backend_apis";
+import { addTaskApi, changeTaskStatusApi } from "../backend_apis";
 
 const initialTasks = {
   backlog: [],
@@ -94,4 +94,31 @@ export const fetchTasks = async (api, token) => {
     console.log("Error in taskSlice.fetchTasks", error);
     return [];
   }
+};
+
+export const changeStatus = (taskId, newStatus, token) => {
+  return async (dispatch) => {
+    try {
+      const body = {
+        taskId,
+        newStatus,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.patch(changeTaskStatusApi, body, {
+        headers,
+      });
+      if (response.status !== 200) {
+        console.log("Error in taskSlice.changeStatus. change status failed!");
+      }
+    } catch (error) {
+      console.log("Error in taskSlice.changeStatus", error);
+    }
+
+    // will change it to a state based re-render later.. for now reload will do
+    window.location.reload();
+  };
 };

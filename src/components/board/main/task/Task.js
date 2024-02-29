@@ -8,6 +8,10 @@ import { MdExpandMore } from "react-icons/md";
 import { MdExpandLess } from "react-icons/md";
 import CheckList from "./CheckList";
 import { format } from "date-fns";
+import MoveToBacklog from "./shift-buttons/MoveToBacklog";
+import MoveToDone from "./shift-buttons/MoveToDone";
+import MoveToOnGoing from "./shift-buttons/MoveToOnGoing";
+import MoveToTodo from "./shift-buttons/MoveToTodo";
 
 const size = 20;
 
@@ -49,6 +53,41 @@ const Task = ({ task }) => {
 
     const today = new Date();
     isDueDatePassed = Date(task.dueDate) < today;
+  }
+
+  let shiftButtons = null;
+  if (task.status === "backlog") {
+    shiftButtons = (
+      <>
+        <MoveToTodo id={task._id} />
+        <MoveToDone id={task._id} />
+        <MoveToOnGoing id={task._id} />
+      </>
+    );
+  } else if (task.status === "todo") {
+    shiftButtons = (
+      <>
+        <MoveToBacklog id={task._id} />
+        <MoveToDone id={task._id} />
+        <MoveToOnGoing id={task._id} />
+      </>
+    );
+  } else if (task.status === "ongoing") {
+    shiftButtons = (
+      <>
+        <MoveToBacklog id={task._id} />
+        <MoveToDone id={task._id} />
+        <MoveToTodo id={task._id} />
+      </>
+    );
+  } else {
+    shiftButtons = (
+      <>
+        <MoveToBacklog id={task._id} />
+        <MoveToOnGoing id={task._id} />
+        <MoveToTodo id={task._id} />
+      </>
+    );
   }
 
   return (
@@ -126,17 +165,7 @@ const Task = ({ task }) => {
         )}
 
         {/* Shift buttons */}
-        <div className={classes.shiftButtons}>
-          <button className={classes.shiftButton}>
-            <p>PROGRESS</p>
-          </button>
-          <button className={classes.shiftButton}>
-            <p>TODO</p>
-          </button>
-          <button className={classes.shiftButton}>
-            <p>DONE</p>
-          </button>
-        </div>
+        <div className={classes.shiftButtons}>{shiftButtons}</div>
       </section>
     </div>
   );

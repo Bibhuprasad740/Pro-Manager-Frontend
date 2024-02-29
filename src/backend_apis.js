@@ -7,3 +7,4 @@ exports.signupApi = `${BASE_URL}/auth/signup`;
 // dashboard apis
 exports.addTaskApi = `${BASE_URL}/api/addTask`;
 exports.getTasksApi = `${BASE_URL}/api/tasks`;
+exports.changeTaskStatusApi = `${BASE_URL}/api/tasks/changeTaskStatus`;
