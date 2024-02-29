@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { addTaskApi, changeTaskStatusApi } from "../backend_apis";
+import {
+  addTaskApi,
+  changeTaskStatusApi,
+  deleteTaskApi,
+} from "../backend_apis";
 
 const initialTasks = {
   backlog: [],
@@ -116,6 +120,29 @@ export const changeStatus = (taskId, newStatus, token) => {
       }
     } catch (error) {
       console.log("Error in taskSlice.changeStatus", error);
+    }
+
+    // will change it to a state based re-render later.. for now reload will do
+    window.location.reload();
+  };
+};
+
+export const deleteTask = (id, token) => {
+  return async (dispatch) => {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.delete(`${deleteTaskApi}/${id}`, {
+        headers,
+      });
+
+      if (response.status !== 200) {
+        console.log("Error in taskSlice.deleteTask. Delete task failed!");
+      }
+    } catch (error) {
+      console.log("Error in taskSlice.deleteTask", error);
     }
 
     // will change it to a state based re-render later.. for now reload will do
