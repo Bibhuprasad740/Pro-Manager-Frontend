@@ -13,28 +13,29 @@ const router = createBrowserRouter([
     path: "/",
     element: <Board />,
     loader: routeProtection,
+    errorElement: <ErrorPage />,
   },
   {
     path: "analytics",
     element: <Analytics />,
     loader: routeProtection,
+    errorElement: <ErrorPage />,
   },
   {
     path: "settings",
     element: <Settings />,
     loader: routeProtection,
-  },
-  {
-    path: "/error",
-    element: <ErrorPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "signin",
     element: <SignIn />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "signup",
     element: <SignUp />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
