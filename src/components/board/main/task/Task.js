@@ -12,17 +12,17 @@ import MoveToBacklog from "./shift-buttons/MoveToBacklog";
 import MoveToDone from "./shift-buttons/MoveToDone";
 import MoveToOnGoing from "./shift-buttons/MoveToOnGoing";
 import MoveToTodo from "./shift-buttons/MoveToTodo";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteTask } from "../../../../store/taskSlice";
+import DeleteTaskModal from "./DeleteTaskModal";
 
 const size = 20;
 
 const Task = ({ task }) => {
-  const token = useSelector((state) => state.auth.currentUser.token);
-  const dispatch = useDispatch();
-
   const [showCheckList, setShowCheckList] = useState(false);
   const [showCardOptions, setShowCardOptions] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const closeModal = () => {
+    setShowDeleteModal(false);
+  };
 
   const showCheckListHandler = () => {
     setShowCheckList((state) => !state);
@@ -33,7 +33,7 @@ const Task = ({ task }) => {
   };
 
   const deleteTaskHandler = () => {
-    dispatch(deleteTask(task._id, token));
+    setShowDeleteModal(true);
     setShowCardOptions(false);
   };
 
@@ -179,6 +179,9 @@ const Task = ({ task }) => {
         {/* Shift buttons */}
         <div className={classes.shiftButtons}>{shiftButtons}</div>
       </section>
+      {showDeleteModal && (
+        <DeleteTaskModal onClose={closeModal} id={task._id} />
+      )}
     </div>
   );
 };
