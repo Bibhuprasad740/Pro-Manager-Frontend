@@ -15,6 +15,10 @@ const initialTasks = {
 
 const initialState = {
   tasks: initialTasks,
+  lowCount: 0,
+  moderateCount: 0,
+  highCount: 0,
+  dueCount: 0,
   error: null,
 };
 
@@ -45,6 +49,18 @@ const taskSlice = createSlice({
     },
     setDone(state, action) {
       state.tasks.done = action.payload;
+    },
+    setLowCount(state, action) {
+      state.lowCount = action.payload;
+    },
+    setModerateCount(state, action) {
+      state.moderateCount = action.payload;
+    },
+    setHighCount(state, action) {
+      state.highCount = action.payload;
+    },
+    setDueCount(state, action) {
+      state.dueCount = action.payload;
     },
     addTodo(state, action) {
       state.tasks.todo.push(action.payload);

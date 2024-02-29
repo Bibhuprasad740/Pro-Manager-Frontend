@@ -1,8 +1,8 @@
 import React from "react";
 
 import classes from "./Analytics.module.css";
-import MainSection from "../board/main/MainSection";
 import NavigationSection from "../reusables/navigation/NavigationSection";
+import MainSection from "./main/MainSection";
 
 const Analytics = () => {
   return (

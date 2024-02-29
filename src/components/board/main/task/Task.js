@@ -62,7 +62,8 @@ const Task = ({ task }) => {
     formattedDate = format(task.dueDate, "MMM dd");
 
     const today = new Date();
-    isDueDatePassed = Date(task.dueDate) < today;
+    const checkingDate = new Date(task.dueDate);
+    isDueDatePassed = checkingDate < today;
   }
 
   let shiftButtons = null;

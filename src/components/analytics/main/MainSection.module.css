@@ -1,0 +1,22 @@
+.mainSection {
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.title {
+  margin: 1rem 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.detailsSection {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.analyticsSection {
+  width: 100%;
+  background-color: #f9fcff;
+  padding: 0.5rem;
+  margin: 2rem 1rem;
+}
