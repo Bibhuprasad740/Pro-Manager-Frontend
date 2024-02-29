@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-
 import classes from "./MainSection.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import TaskSection from "./TaskSection";
 import { uiActions } from "../../../store/uiSlice";
-import { fetchTasks, taskActions } from "../../../store/taskSlice";
 import { getTasksApi } from "../../../backend_apis";
+import { fetchTasks, taskActions } from "../../../store/taskSlice";
+
+import TaskSection from "./task-section/TaskSection";
 
 const MainSection = () => {
   const dispatch = useDispatch();

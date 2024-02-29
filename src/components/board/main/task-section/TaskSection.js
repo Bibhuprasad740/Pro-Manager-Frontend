@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import classes from "./TaskSection.module.css";
-import Task from "./Task";
+import Task from "../task/Task";
 
 import { VscCollapseAll } from "react-icons/vsc";
 import { IoAddOutline } from "react-icons/io5";
-import AddTaskModal from "./AddTaskModal";
 import { useDispatch } from "react-redux";
-import { uiActions } from "../../../store/uiSlice";
+import { uiActions } from "../../../../store/uiSlice";
+import AddTaskModal from "../add-task/AddTaskModal";
 
 const size = 20;
 

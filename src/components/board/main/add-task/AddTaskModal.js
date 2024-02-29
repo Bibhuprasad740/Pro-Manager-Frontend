@@ -5,7 +5,7 @@ import AddTaskCheckList from "./AddTaskCheckLIst";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, taskActions } from "../../../store/taskSlice";
+import { addTask, taskActions } from "../../../../store/taskSlice";
 
 const AddTaskModal = ({ onClose }) => {
   const dispatch = useDispatch();

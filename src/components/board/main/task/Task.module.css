@@ -76,7 +76,8 @@ button {
 }
 
 .deadline,
-.normal {
+.normal,
+.done {
   border-radius: 5px;
   padding: 5px 8px;
   font-size: 10px;
@@ -90,6 +91,11 @@ button {
 
 .normal {
   background-color: rgb(220, 220, 220);
+}
+
+.done {
+  background-color: green;
+  color: white;
 }
 
 .shiftButtons {

@@ -113,7 +113,13 @@ const Task = ({ task }) => {
         {/* Deadline */}
         {formattedDate && (
           <button
-            className={isDueDatePassed ? classes.deadline : classes.normal}
+            className={
+              task.status === "done"
+                ? classes.done
+                : isDueDatePassed
+                ? classes.deadline
+                : classes.normal
+            }
           >
             <p>{formattedDate}</p>
           </button>
