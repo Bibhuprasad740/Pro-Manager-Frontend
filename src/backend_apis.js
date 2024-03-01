@@ -1,6 +1,8 @@
-const BASE_URL = "http://localhost:8080";
+// const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://pro-manager-backend.onrender.com";
 
-exports.frontendUrl = "http://localhost:3000";
+// exports.frontendUrl = "http://localhost:3000";
+exports.frontendUrl = "https://pro-manager-frontend-kappa.vercel.app/";
 
 // auth apis
 exports.signinApi = `${BASE_URL}/auth/signin`;
