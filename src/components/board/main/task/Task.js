@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import classes from "./Task.module.css";
 
@@ -21,13 +21,20 @@ import EditTaskModal from "../edit-task/EditTaskModal";
 
 const size = 20;
 
-const Task = ({ task }) => {
+const Task = ({ task, isCollapsedAll, onShow }) => {
   const [showCheckList, setShowCheckList] = useState(false);
   const [showCardOptions, setShowCardOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const token = useSelector((state) => state.auth.currentUser.token);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isCollapsedAll === true) {
+      setShowCheckList(false);
+    }
+  }, [isCollapsedAll]);
+
   const closeLogoutModal = () => {
     setShowDeleteModal(false);
   };
@@ -37,6 +44,7 @@ const Task = ({ task }) => {
 
   const showCheckListHandler = () => {
     setShowCheckList((state) => !state);
+    onShow();
   };
 
   const cardOptionsClickHandler = () => {
