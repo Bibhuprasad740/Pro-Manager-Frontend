@@ -22,6 +22,7 @@ const initialState = {
   highCount: 0,
   dueCount: 0,
   error: null,
+  message: null,
 };
 
 const taskSlice = createSlice({
@@ -64,6 +65,9 @@ const taskSlice = createSlice({
     addTodo(state, action) {
       state.tasks.todo.push(action.payload);
     },
+    setMessage(state, action) {
+      state.message = action.payload;
+    },
   },
 });
 
@@ -94,6 +98,7 @@ export const addTask = (task, userToken) => {
         });
 
       dispatch(taskActions.setError(null));
+      dispatch(taskActions.setMessage("Task added successfully!"));
     } catch (error) {
       dispatch(taskActions.setError("Can not add task!"));
       console.log("Error in taskSlice.addTask", error);
@@ -115,6 +120,7 @@ export const editTask = (task, token) => {
         console.log("axios error in taskSlice.addTask");
       }
       dispatch(taskActions.setError(null));
+      dispatch(taskActions.setMessage("Task updated successfully!"));
 
       window.location.reload();
     } catch (error) {
@@ -171,6 +177,7 @@ export const changeStatus = (taskId, newStatus, token) => {
         console.log("Error in taskSlice.changeStatus. change status failed!");
       }
       dispatch(taskActions.setError(null));
+      dispatch(taskActions.setMessage("Moved successfully!"));
 
       window.location.reload();
     } catch (error) {
@@ -197,9 +204,10 @@ export const deleteTask = (id, token) => {
         dispatch(taskActions.setError(response.data));
         console.log("Error in taskSlice.deleteTask. Delete task failed!");
       }
-      window.location.reload();
-
       dispatch(taskActions.setError(null));
+      dispatch(taskActions.setMessage("Task deleted successfully!"));
+
+      window.location.reload();
     } catch (error) {
       dispatch(taskActions.setError(error.response.data));
       console.log("Error in taskSlice.deleteTask", error);

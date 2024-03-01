@@ -12,7 +12,6 @@ const size = 25;
 const MainSection = () => {
   const userName = useSelector((state) => state.auth.currentUser.name);
   const userToken = useSelector((state) => state.auth.currentUser.token);
-  const errorText = useSelector((state) => state.auth.error);
 
   const dispatch = useDispatch();
 
@@ -97,8 +96,6 @@ const MainSection = () => {
             <BiSolidHide onClick={toggleShowPasswordHandler} size={size} />
           )}
         </div>
-
-        {errorText && <p className={classes.error}>{errorText}</p>}
 
         <UpdateButton title="Update" onClick={submitHandler} />
       </form>

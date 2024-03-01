@@ -11,11 +11,14 @@ import logo from "../../../assets/images/logo.png";
 import { NavLink } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
 import { Toaster, toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../../store/authSlice";
+import { taskActions } from "../../../store/taskSlice";
 
 const size = 25;
 
 const NavigationSection = () => {
+  const dispatch = useDispatch();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const closeModalHandler = () => {
     setShowLogoutModal(false);
@@ -27,14 +30,33 @@ const NavigationSection = () => {
 
   const errorTextTask = useSelector((state) => state.task.error);
   const errorTextAuth = useSelector((state) => state.auth.error);
+
+  const successMessageAuth = useSelector((state) => state.auth.message);
+  const successMessageTask = useSelector((state) => state.task.message);
   useEffect(() => {
     if (errorTextTask) {
       toast.error(errorTextTask);
+      dispatch(authActions.setError(null));
     }
     if (errorTextAuth) {
       toast.error(errorTextAuth);
+      dispatch(taskActions.setError(null));
     }
-  }, [errorTextTask, errorTextAuth]);
+    if (successMessageAuth) {
+      toast.success(successMessageAuth);
+      dispatch(authActions.setMessage(null));
+    }
+    if (successMessageTask) {
+      toast.success(successMessageTask);
+      dispatch(taskActions.setMessage(null));
+    }
+  }, [
+    errorTextTask,
+    errorTextAuth,
+    dispatch,
+    successMessageAuth,
+    successMessageTask,
+  ]);
 
   return (
     <div className={classes.navigationSection}>

@@ -16,6 +16,7 @@ const initialState = {
   isAuthenticated: authStatus,
   currentUser: initialUser,
   error: null,
+  message: null,
 };
 
 const authSlice = createSlice({
@@ -61,6 +62,9 @@ const authSlice = createSlice({
     setUser(state, action) {
       state.currentUser = action.payload;
     },
+    setMessage(state, action) {
+      state.message = action.payload;
+    },
   },
 });
 
@@ -98,9 +102,10 @@ export const register = (name, email, password, confirmPassword) => {
         })
       );
       history.push("/signin");
-      window.location.reload();
-
       dispatch(authActions.setError(null));
+      dispatch(authActions.setMessage("User created successfully!"));
+
+      window.location.reload();
     } catch (error) {
       console.log("Error in authSlice.register", error);
       dispatch(authActions.setError(error.response.data));
@@ -135,9 +140,10 @@ export const signin = (email, password) => {
       dispatch(authActions.loginSuccess(response.data));
 
       history.push("/");
-      window.location.reload();
-
       dispatch(authActions.setError(null));
+      dispatch(authActions.setMessage("Login successful!"));
+
+      window.location.reload();
     } catch (error) {
       console.log("Error in authSlice.signin", error);
       dispatch(authActions.setError(error.response.data));
@@ -181,7 +187,7 @@ export const updateUserCredential = (name, oldPassword, newPassword, token) => {
         email: response.data.email,
       };
       dispatch(authActions.setUser(newUser));
-
+      dispatch(authActions.setMessage("Details updated successfully!"));
       dispatch(authActions.setError(null));
     } catch (error) {
       dispatch(authActions.setError(error.response.data));

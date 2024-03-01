@@ -37,11 +37,6 @@
   outline: none;
 }
 
-.error {
-  color: rgb(155, 1, 1);
-  font-size: 1rem;
-}
-
 @media only screen and (max-width: 600px) {
   .mainSection {
     padding: 1rem;
