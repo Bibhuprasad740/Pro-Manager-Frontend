@@ -32,8 +32,8 @@
 
 .cardOptions {
   position: absolute;
-  border-radius: 20px;
-  background-color: rgb(237, 237, 254);
+  border-radius: 10px;
+  background-color: rgb(249, 249, 255);
   box-shadow: 2px 2px 5px rgb(191, 191, 191);
 }
 
