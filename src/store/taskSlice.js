@@ -115,6 +115,19 @@ export const fetchTasks = async (api, token) => {
   }
 };
 
+export const fetchTask = async (api) => {
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await axios.get(api, { headers });
+    return response.data;
+  } catch (error) {
+    console.log("Error in taskSlice.fetchTask", error);
+  }
+};
+
 export const changeStatus = (taskId, newStatus, token) => {
   return async (dispatch) => {
     try {

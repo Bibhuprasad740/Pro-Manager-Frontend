@@ -15,6 +15,8 @@ import MoveToTodo from "./shift-buttons/MoveToTodo";
 import DeleteTaskModal from "./DeleteTaskModal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTaskCheck } from "../../../../store/taskSlice";
+import { frontendUrl } from "../../../../backend_apis";
+import { toast } from "react-hot-toast";
 
 const size = 20;
 
@@ -34,6 +36,13 @@ const Task = ({ task }) => {
 
   const cardOptionsClickHandler = () => {
     setShowCardOptions((state) => !state);
+  };
+
+  const shareHandler = () => {
+    const taskId = task._id;
+    const sharableLink = `${frontendUrl}/tasks/${taskId}/sharable-link`;
+    navigator.clipboard.writeText(sharableLink);
+    toast.success("Link copied successfully!");
   };
 
   const deleteTaskHandler = () => {
@@ -133,7 +142,9 @@ const Task = ({ task }) => {
         <div className={classes.wrapper}>
           <div className={classes.cardOptions}>
             <button className={classes.cardOption}>Edit</button>
-            <button className={classes.cardOption}>Share</button>
+            <button onClick={shareHandler} className={classes.cardOption}>
+              Share
+            </button>
             <button onClick={deleteTaskHandler} className={classes.cardOption}>
               Delete
             </button>

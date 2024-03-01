@@ -7,6 +7,7 @@ import { routeProtection } from "./utils/utils";
 import ErrorPage from "./components/error/ErrorPage";
 import Analytics from "./components/analytics/Analytics";
 import Settings from "./components/settings/Settings";
+import SharablePage from "./components/sharable-page/SharablePage";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignUp />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "tasks/:taskId/sharable-link",
+    element: <SharablePage />,
     errorElement: <ErrorPage />,
   },
 ]);
