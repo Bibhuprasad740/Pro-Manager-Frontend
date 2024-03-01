@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTaskCheck } from "../../../../store/taskSlice";
 import { frontendUrl } from "../../../../backend_apis";
 import { toast } from "react-hot-toast";
+import EditTaskModal from "../edit-task/EditTaskModal";
 
 const size = 20;
 
@@ -24,10 +25,14 @@ const Task = ({ task }) => {
   const [showCheckList, setShowCheckList] = useState(false);
   const [showCardOptions, setShowCardOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const token = useSelector((state) => state.auth.currentUser.token);
   const dispatch = useDispatch();
-  const closeModal = () => {
+  const closeLogoutModal = () => {
     setShowDeleteModal(false);
+  };
+  const closeEditTaskModal = () => {
+    setShowEditModal(false);
   };
 
   const showCheckListHandler = () => {
@@ -43,6 +48,12 @@ const Task = ({ task }) => {
     const sharableLink = `${frontendUrl}/tasks/${taskId}/sharable-link`;
     navigator.clipboard.writeText(sharableLink);
     toast.success("Link copied successfully!");
+    setShowCardOptions(false);
+  };
+
+  const editTaskHandler = () => {
+    setShowCardOptions(false);
+    setShowEditModal(true);
   };
 
   const deleteTaskHandler = () => {
@@ -50,7 +61,6 @@ const Task = ({ task }) => {
     setShowCardOptions(false);
   };
 
-  // TODO: implement this function
   const toggleCheckHandler = (item) => {
     const taskId = task._id;
     const checklistId = item._id;
@@ -141,7 +151,9 @@ const Task = ({ task }) => {
       {showCardOptions && (
         <div className={classes.wrapper}>
           <div className={classes.cardOptions}>
-            <button className={classes.cardOption}>Edit</button>
+            <button onClick={editTaskHandler} className={classes.cardOption}>
+              Edit
+            </button>
             <button onClick={shareHandler} className={classes.cardOption}>
               Share
             </button>
@@ -202,7 +214,10 @@ const Task = ({ task }) => {
         <div className={classes.shiftButtons}>{shiftButtons}</div>
       </section>
       {showDeleteModal && (
-        <DeleteTaskModal onClose={closeModal} id={task._id} />
+        <DeleteTaskModal onClose={closeLogoutModal} id={task._id} />
+      )}
+      {showEditModal && (
+        <EditTaskModal onClose={closeEditTaskModal} task={task} />
       )}
     </div>
   );

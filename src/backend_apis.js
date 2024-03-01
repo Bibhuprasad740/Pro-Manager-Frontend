@@ -2,7 +2,7 @@
 const BASE_URL = "https://pro-manager-backend.onrender.com";
 
 // exports.frontendUrl = "http://localhost:3000";
-exports.frontendUrl = "https://pro-manager-frontend-kappa.vercel.app/";
+exports.frontendUrl = "https://pro-manager-frontend-kappa.vercel.app";
 
 // auth apis
 exports.signinApi = `${BASE_URL}/auth/signin`;
@@ -18,3 +18,4 @@ exports.deleteTaskApi = `${BASE_URL}/api/deleteTask`;
 exports.getTasksBasedOnPriorityApi = `${BASE_URL}/api/getTasksBasedOnPriority`;
 exports.getDueTasksApi = `${BASE_URL}/api/tasks/dueTasks`;
 exports.shareLinkApi = `${BASE_URL}/api/tasks`;
+exports.editTaskApi = `${BASE_URL}/api/tasks/editTask`;

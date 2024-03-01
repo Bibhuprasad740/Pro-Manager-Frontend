@@ -4,6 +4,7 @@ import {
   addTaskApi,
   changeTaskStatusApi,
   deleteTaskApi,
+  editTaskApi,
   toggleCheckApi,
 } from "../backend_apis";
 
@@ -94,9 +95,31 @@ export const addTask = (task, userToken) => {
 
       dispatch(taskActions.setError(null));
     } catch (error) {
-      dispatch(taskActions.setError(error.response.data));
+      dispatch(taskActions.setError("Can not add task!"));
       console.log("Error in taskSlice.addTask", error);
-      //   taskActions.setError(error.response.data);
+    }
+  };
+};
+
+export const editTask = (task, token) => {
+  return async (dispatch) => {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.put(editTaskApi, task, { headers });
+
+      if (response.status !== 200) {
+        dispatch(taskActions.setError(response.data));
+        console.log("axios error in taskSlice.addTask");
+      }
+      dispatch(taskActions.setError(null));
+
+      window.location.reload();
+    } catch (error) {
+      dispatch(taskActions.setError("Can not edit task!"));
+      console.log("Error in taskSlice.editTask", error);
     }
   };
 };
@@ -147,9 +170,9 @@ export const changeStatus = (taskId, newStatus, token) => {
         dispatch(taskActions.setError(response.data));
         console.log("Error in taskSlice.changeStatus. change status failed!");
       }
-      window.location.reload();
-
       dispatch(taskActions.setError(null));
+
+      window.location.reload();
     } catch (error) {
       dispatch(taskActions.setError("Can not update status!"));
       console.log("Error in taskSlice.changeStatus", error);
@@ -205,9 +228,9 @@ export const toggleTaskCheck = (taskId, checklistId, checked, token) => {
         dispatch(taskActions.setError(response.data));
         console.log("Error in taskSlice.toggleTaskCheck. Toggle check failed!");
       }
-      window.location.reload();
-
       dispatch(taskActions.setError(null));
+
+      window.location.reload();
     } catch (error) {
       dispatch(taskActions.setError(error.response.data));
       console.log("Error in taskSlice.toggleTaskCheck", error);
