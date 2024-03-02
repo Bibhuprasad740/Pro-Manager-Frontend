@@ -75,7 +75,7 @@ export default authSlice;
 // custom action creators
 export const register = (name, email, password, confirmPassword) => {
   return async (dispatch) => {
-    authActions.setLoading(true);
+    dispatch(authActions.setLoading(true));
     try {
       const formData = new FormData();
       formData.append("name", name);
@@ -110,13 +110,13 @@ export const register = (name, email, password, confirmPassword) => {
       console.log("Error in authSlice.register", error);
       dispatch(authActions.setError(error.response.data));
     }
-    authActions.setLoading(false);
+    dispatch(authActions.setLoading(false));
   };
 };
 
 export const signin = (email, password) => {
   return async (dispatch) => {
-    authActions.setLoading(true);
+    dispatch(authActions.setLoading(true));
     try {
       console.log("Trying to sing in..");
       const formData = new FormData();
@@ -148,12 +148,13 @@ export const signin = (email, password) => {
       console.log("Error in authSlice.signin", error);
       dispatch(authActions.setError(error.response.data));
     }
-    authActions.setLoading(false);
+    dispatch(authActions.setLoading(false));
   };
 };
 
 export const updateUserCredential = (name, oldPassword, newPassword, token) => {
   return async (dispatch) => {
+    dispatch(authActions.setLoading(true));
     try {
       if (!name || name.trim().length === 0) {
         dispatch(authActions.setError("Name can not be empty!"));
@@ -193,5 +194,6 @@ export const updateUserCredential = (name, oldPassword, newPassword, token) => {
       dispatch(authActions.setError(error.response.data));
       console.log("Error in authSlice.updateUserCredential", error);
     }
+    dispatch(authActions.setLoading(false));
   };
 };

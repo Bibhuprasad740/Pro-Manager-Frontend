@@ -68,6 +68,68 @@ const taskSlice = createSlice({
     setMessage(state, action) {
       state.message = action.payload;
     },
+    updateTask(state, action) {
+      const updatedTask = action.payload;
+      for (let i = 0; i < state.tasks.backlog.length; i++) {
+        if (state.tasks.backlog[i]._id === updatedTask._id) {
+          state.tasks.backlog[i] = updatedTask;
+          return;
+        }
+      }
+      for (let i = 0; i < state.tasks.todo.length; i++) {
+        if (state.tasks.todo[i]._id === updatedTask._id) {
+          state.tasks.todo[i] = updatedTask;
+          return;
+        }
+      }
+      for (let i = 0; i < state.tasks.onGoing.length; i++) {
+        if (state.tasks.onGoing[i]._id === updatedTask._id) {
+          state.tasks.onGoing[i] = updatedTask;
+          return;
+        }
+      }
+      for (let i = 0; i < state.tasks.done.length; i++) {
+        if (state.tasks.done[i]._id === updatedTask._id) {
+          state.tasks.done[i] = updatedTask;
+          return;
+        }
+      }
+    },
+    deleteTask(state, action) {
+      const taskId = action.payload;
+      for (let i = 0; i < state.tasks.backlog.length; i++) {
+        if (state.tasks.backlog[i]._id === taskId) {
+          state.tasks.backlog = state.tasks.backlog.filter(
+            (task) => task._id !== taskId
+          );
+          return;
+        }
+      }
+      for (let i = 0; i < state.tasks.todo.length; i++) {
+        if (state.tasks.todo[i]._id === taskId) {
+          state.tasks.todo = state.tasks.todo.filter(
+            (task) => task._id !== taskId
+          );
+          return;
+        }
+      }
+      for (let i = 0; i < state.tasks.onGoing.length; i++) {
+        if (state.tasks.onGoing[i]._id === taskId) {
+          state.tasks.onGoing = state.tasks.onGoing.filter(
+            (task) => task._id !== taskId
+          );
+          return;
+        }
+      }
+      for (let i = 0; i < state.tasks.done.length; i++) {
+        if (state.tasks.done[i]._id === taskId) {
+          state.tasks.done = state.tasks.done.filter(
+            (task) => task._id !== taskId
+          );
+          return;
+        }
+      }
+    },
   },
 });
 
@@ -119,10 +181,9 @@ export const editTask = (task, token) => {
         dispatch(taskActions.setError(response.data));
         console.log("axios error in taskSlice.addTask");
       }
+      dispatch(taskActions.updateTask(response.data));
       dispatch(taskActions.setError(null));
       dispatch(taskActions.setMessage("Task updated successfully!"));
-
-      window.location.reload();
     } catch (error) {
       dispatch(taskActions.setError("Can not edit task!"));
       console.log("Error in taskSlice.editTask", error);
@@ -179,13 +240,12 @@ export const changeStatus = (taskId, newStatus, token) => {
       dispatch(taskActions.setError(null));
       dispatch(taskActions.setMessage("Moved successfully!"));
 
+      // will change it to a state based re-render later.. for now reload will do
       window.location.reload();
     } catch (error) {
       dispatch(taskActions.setError("Can not update status!"));
       console.log("Error in taskSlice.changeStatus", error);
     }
-
-    // will change it to a state based re-render later.. for now reload will do
   };
 };
 
@@ -204,16 +264,14 @@ export const deleteTask = (id, token) => {
         dispatch(taskActions.setError(response.data));
         console.log("Error in taskSlice.deleteTask. Delete task failed!");
       }
+
+      dispatch(taskActions.deleteTask(response.data));
       dispatch(taskActions.setError(null));
       dispatch(taskActions.setMessage("Task deleted successfully!"));
-
-      window.location.reload();
     } catch (error) {
       dispatch(taskActions.setError(error.response.data));
       console.log("Error in taskSlice.deleteTask", error);
     }
-
-    // will change it to a state based re-render later.. for now reload will do
   };
 };
 
@@ -230,17 +288,18 @@ export const toggleTaskCheck = (taskId, checklistId, checked, token) => {
         checked,
       };
 
-      const response = await axios.put(toggleCheckApi, body, { headers });
-
-      if (response.status !== 200) {
-        dispatch(taskActions.setError(response.data));
-        console.log("Error in taskSlice.toggleTaskCheck. Toggle check failed!");
-      }
-      dispatch(taskActions.setError(null));
-
-      window.location.reload();
+      await axios.put(toggleCheckApi, body, { headers }).then((response) => {
+        if (response.status !== 200) {
+          dispatch(taskActions.setError(response.data));
+          console.log(
+            "Error in taskSlice.toggleTaskCheck. Toggle check failed!"
+          );
+        }
+        dispatch(taskActions.updateTask(response.data));
+        dispatch(taskActions.setError(null));
+      });
     } catch (error) {
-      dispatch(taskActions.setError(error.response.data));
+      dispatch(taskActions.setError("something went wrong!"));
       console.log("Error in taskSlice.toggleTaskCheck", error);
     }
   };
