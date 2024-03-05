@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
 import classes from "./MainSection.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../../store/uiSlice";
-import { getTasksApi } from "../../../backend_apis";
-import { fetchTasks, taskActions } from "../../../store/taskSlice";
 
 import TaskSection from "./task-section/TaskSection";
 
 const MainSection = () => {
   const dispatch = useDispatch();
   const { name } = useSelector((state) => state.auth.currentUser);
-  const currentFilter = useSelector((state) => state.ui.currentFilter);
   const firstName = name.split(" ")[0];
   const date = new Date();
   const options = { day: "numeric", month: "short", year: "numeric" };
@@ -19,7 +15,6 @@ const MainSection = () => {
     (state) => state.ui.showDurationFilter
   );
 
-  const userToken = useSelector((state) => state.auth.currentUser.token);
   const selectedFilter = useSelector((state) => state.ui.currentFilter);
   const backlogTasks = useSelector((state) => state.task.tasks.backlog);
   const todoTasks = useSelector((state) => state.task.tasks.todo);
@@ -34,35 +29,6 @@ const MainSection = () => {
     dispatch(uiActions.changeCurrentFilter(filter));
     dispatch(uiActions.hideFilter());
   };
-
-  useEffect(() => {
-    const fetchBacklog = async () => {
-      const backlogTasksApi =
-        getTasksApi + `?status=backlog&filter=${currentFilter}`;
-      const backlogTasks = await fetchTasks(backlogTasksApi, userToken);
-      dispatch(taskActions.setBacklog(backlogTasks));
-    };
-    const fetchTodo = async () => {
-      const todoTasksApi = getTasksApi + `?status=todo&filter=${currentFilter}`;
-      const todoTasks = await fetchTasks(todoTasksApi, userToken);
-      dispatch(taskActions.setTodo(todoTasks));
-    };
-    const fetchOnGoing = async () => {
-      const onGoingTasksApi =
-        getTasksApi + `?status=ongoing&filter=${currentFilter}`;
-      const onGoingTasks = await fetchTasks(onGoingTasksApi, userToken);
-      dispatch(taskActions.setOnGoing(onGoingTasks));
-    };
-    const fetchDone = async () => {
-      const doneTasksApi = getTasksApi + `?status=done&filter=${currentFilter}`;
-      const doneTasks = await fetchTasks(doneTasksApi, userToken);
-      dispatch(taskActions.setDone(doneTasks));
-    };
-    fetchBacklog();
-    fetchTodo();
-    fetchOnGoing();
-    fetchDone();
-  }, [currentFilter, dispatch, userToken]);
 
   return (
     <div className={classes.mainSection}>

@@ -39,7 +39,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "tasks/:taskId/sharable-link",
+    path: "tasks/:taskId/shareable-link",
     element: <SharablePage />,
     errorElement: <ErrorPage />,
   },

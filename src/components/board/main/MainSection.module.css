@@ -74,3 +74,27 @@
   gap: 10px;
   width: 90vw;
 }
+
+@media only screen and (max-width: 600px) {
+  .mainSection {
+    padding: 1rem;
+  }
+  .title {
+    font-size: 1rem;
+  }
+  .wrapper {
+    width: 75vw;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+  .mainSection {
+    padding: 1rem;
+  }
+  .title {
+    font-size: 1rem;
+  }
+  .wrapper {
+    width: 80vw;
+  }
+}

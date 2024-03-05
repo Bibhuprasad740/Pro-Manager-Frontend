@@ -192,16 +192,23 @@ export const editTask = (task, token) => {
 };
 
 export const fetchTasks = async (api, token) => {
+  let errorMessage = null;
   try {
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     const response = await axios.get(api, { headers });
-    return response.data;
+    if (response.status !== 200) {
+      errorMessage = response.data;
+    }
+    // return response.data;
+    return { tasks: response.data, error: errorMessage };
   } catch (error) {
+    errorMessage = error.response.data;
     console.log("Error in taskSlice.fetchTasks", error);
-    return [];
+    // return [];
+    return { tasks: [], error: errorMessage };
   }
 };
 

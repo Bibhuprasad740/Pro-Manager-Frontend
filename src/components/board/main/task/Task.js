@@ -53,7 +53,7 @@ const Task = ({ task, isCollapsedAll, onShow }) => {
 
   const shareHandler = () => {
     const taskId = task._id;
-    const sharableLink = `${frontendUrl}/tasks/${taskId}/sharable-link`;
+    const sharableLink = `${frontendUrl}/tasks/${taskId}/shareable-link`;
     navigator.clipboard.writeText(sharableLink);
     toast.success("Link copied successfully!");
     setShowCardOptions(false);

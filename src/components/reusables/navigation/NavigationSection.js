@@ -13,7 +13,12 @@ import LogoutModal from "./LogoutModal";
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../store/authSlice";
-import { taskActions } from "../../../store/taskSlice";
+import { fetchTasks, taskActions } from "../../../store/taskSlice";
+import {
+  getDueTasksApi,
+  getTasksApi,
+  getTasksBasedOnPriorityApi,
+} from "../../../backend_apis";
 
 const size = 25;
 
@@ -33,7 +38,104 @@ const NavigationSection = () => {
 
   const successMessageAuth = useSelector((state) => state.auth.message);
   const successMessageTask = useSelector((state) => state.task.message);
+
+  const currentFilter = useSelector((state) => state.ui.currentFilter);
+  const userToken = useSelector((state) => state.auth.currentUser.token);
+
   useEffect(() => {
+    const fetchBacklog = async () => {
+      const backlogTasksApi =
+        getTasksApi + `?status=backlog&filter=${currentFilter}`;
+      const backlogTasks = await fetchTasks(backlogTasksApi, userToken);
+      dispatch(taskActions.setBacklog(backlogTasks.tasks));
+
+      if (backlogTasks.error) {
+        toast.error(backlogTasks.error);
+      }
+    };
+    const fetchTodo = async () => {
+      const todoTasksApi = getTasksApi + `?status=todo&filter=${currentFilter}`;
+      const todoTasks = await fetchTasks(todoTasksApi, userToken);
+      dispatch(taskActions.setTodo(todoTasks.tasks));
+
+      if (todoTasks.error) {
+        toast.error(todoTasks.error);
+      }
+    };
+    const fetchOnGoing = async () => {
+      const onGoingTasksApi =
+        getTasksApi + `?status=ongoing&filter=${currentFilter}`;
+      const onGoingTasks = await fetchTasks(onGoingTasksApi, userToken);
+      dispatch(taskActions.setOnGoing(onGoingTasks.tasks));
+
+      if (onGoingTasks.error) {
+        toast.error(onGoingTasks.error);
+      }
+    };
+    const fetchDone = async () => {
+      const doneTasksApi = getTasksApi + `?status=done&filter=${currentFilter}`;
+      const doneTasks = await fetchTasks(doneTasksApi, userToken);
+      dispatch(taskActions.setDone(doneTasks.tasks));
+
+      if (doneTasks.error) {
+        toast.error(doneTasks.error);
+      }
+    };
+
+    const fetchLowPriority = async () => {
+      const lowPriorityApi = getTasksBasedOnPriorityApi + `?priority=low`;
+      const lowPriorityTasks = await fetchTasks(lowPriorityApi, userToken);
+      dispatch(taskActions.setLowCount(lowPriorityTasks.tasks.length));
+
+      if (lowPriorityTasks.error) {
+        toast.error(lowPriorityTasks.error);
+      }
+    };
+
+    const fetchMediumPriority = async () => {
+      const moderatePriorityApi =
+        getTasksBasedOnPriorityApi + `?priority=moderate`;
+      const moderatePriorityTasks = await fetchTasks(
+        moderatePriorityApi,
+        userToken
+      );
+      dispatch(
+        taskActions.setModerateCount(moderatePriorityTasks.tasks.length)
+      );
+
+      if (moderatePriorityTasks.error) {
+        toast.error(moderatePriorityTasks.error);
+      }
+    };
+
+    const fetchHighPriority = async () => {
+      const highPriorityApi = getTasksBasedOnPriorityApi + `?priority=high`;
+      const highPriorityTasks = await fetchTasks(highPriorityApi, userToken);
+      dispatch(taskActions.setHighCount(highPriorityTasks.tasks.length));
+
+      if (highPriorityTasks.error) {
+        toast.error(highPriorityTasks.error);
+      }
+    };
+
+    const fetchDueTasks = async () => {
+      const dueTasks = await fetchTasks(getDueTasksApi, userToken);
+      dispatch(taskActions.setDueCount(dueTasks.tasks.length));
+
+      if (dueTasks.error) {
+        toast.error(dueTasks.error);
+      }
+    };
+
+    fetchBacklog();
+    fetchTodo();
+    fetchOnGoing();
+    fetchDone();
+    fetchLowPriority();
+    fetchMediumPriority();
+    fetchHighPriority();
+    fetchDueTasks();
+
     if (errorTextTask) {
       toast.error(errorTextTask);
       dispatch(authActions.setError(null));
@@ -56,6 +158,8 @@ const NavigationSection = () => {
     dispatch,
     successMessageAuth,
     successMessageTask,
+    currentFilter,
+    userToken,
   ]);
 
   return (
