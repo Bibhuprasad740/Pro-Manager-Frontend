@@ -6,7 +6,12 @@ import { useSelector } from "react-redux";
 const SubmitButton = ({ title, onClick }) => {
   const isLoading = useSelector((state) => state.auth.isLoading);
   return (
-    <button className={classes.submitButton} type="submit" onClick={onClick}>
+    <button
+      disabled={isLoading}
+      className={classes.submitButton}
+      type="submit"
+      onClick={onClick}
+    >
       {`${isLoading ? "Loading..." : title}`}
     </button>
   );

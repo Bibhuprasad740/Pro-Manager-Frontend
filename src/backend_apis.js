@@ -1,5 +1,7 @@
+// backend uri
 // const BASE_URL = "http://localhost:8080";
-const BASE_URL = "https://pro-manager-backend.onrender.com";
+// const BASE_URL = "https://pro-manager-backend.onrender.com";
+const BASE_URL = "https://pro-manager-backend-ebon.vercel.app";
 
 // exports.frontendUrl = "http://localhost:3000";
 exports.frontendUrl = "https://pro-manager-frontend-kappa.vercel.app";
